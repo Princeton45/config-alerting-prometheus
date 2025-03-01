@@ -1,4 +1,4 @@
-# Alerting Configuration for Kubernetes Application
+# Alerting Configuration for Kubernetes Microservices Application
 
 ## Project Overview
 In this project, I configured a comprehensive alerting system for a Kubernetes Microservices application using Prometheus and AlertManager. The system now monitors the  application and sends email notifications when CPU usage on a pod exceed 50% or when a pod can't start.
