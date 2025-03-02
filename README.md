@@ -122,7 +122,7 @@ I also created `email-secret.yaml` which contains a base64 encoded secret of the
 
 Now in the Alertmanager status at `http://127.0.0.1:9093/#/status`, we can see the configuration added:
 
-![alert-man](https://github.com/Princeton45/config-alerting-prometheus/blob/main/images/alert-man.png)
+![alert-man](https://github.com/Princeton45/config-alerting-prometheus/blob/main/images/alert-man1.png)
 
 ![routes](https://github.com/Princeton45/config-alerting-prometheus/blob/main/images/routes.png)
 
