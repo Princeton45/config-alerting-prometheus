@@ -1,0 +1,31 @@
+#Custom CRD
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: main-rules-alert-config
+  namespace: monitoring
+spec:
+  #Configuring the route
+  route:
+    receiver: 'email'
+    repeatInterval: 30m
+    routes:
+    - matchers:
+      - name: alertname
+        value: HostHighCpuLoad
+    - matchers:
+      - name: alertname
+        value: KubernetesPodCrashLooping
+      repeatInterval: 10m
+  #Configuring email receiver
+  receivers:
+  - name: 'email'
+    emailConfigs:
+    - to: 'princetonabdulsalam25@gmail.com'
+      from: 'princetonabdulsalam25@gmail.com'
+      smarthost: 'smtp.gmail.com:587'
+      authUsername: 'princetonabdulsalam25@gmail.com'
+      authIdentity: 'princetonabdulsalam25@gmail.com'
+      authPassword: 
+        name: gmail-auth
+        key: password

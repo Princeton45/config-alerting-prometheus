@@ -10,10 +10,6 @@ In this project, I configured a comprehensive alerting system for a Kubernetes M
 
 ## Implementation
 
-### 1st alert rule - when CPU usage > 50%
-
-### 2nd alert rule - when a Pod cannot start
-
 ### Prometheus Alert Rules Configuration
 I configured Prometheus to monitor our application's resources and trigger alerts based on specific conditions:
 
@@ -85,7 +81,51 @@ I installed and configured AlertManager to process the alerts from Prometheus:
 2. Created configuration files to define alert routing
 3. Set up an email receiver to notify the team
 
-![AlertManager Configuration Screenshot](suggested-image-alertmanager-config.png)
+The Prometheus Operator handles configurations for Alert Manager, so I created a custom resource from the `AlertManagerConfig` CRD
+
+`alert-manager-config.yaml`
+```yaml
+#Custom CRD
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: main-rules-alert-config
+  namespace: monitoring
+spec:
+  #Configuring the route
+  route:
+    receiver: 'email'
+    repeatInterval: 30m
+    routes:
+    - matchers:
+      - name: alertname
+        value: HostHighCpuLoad
+    - matchers:
+      - name: alertname
+        value: KubernetesPodCrashLooping
+      repeatInterval: 10m
+  #Configuring email receiver
+  receivers:
+  - name: 'email'
+    emailConfigs:
+    - to: 'princetonabdulsalam25@gmail.com'
+      from: 'princetonabdulsalam25@gmail.com'
+      smarthost: 'smtp.gmail.com:587'
+      authUsername: 'princetonabdulsalam25@gmail.com'
+      authIdentity: 'princetonabdulsalam25@gmail.com'
+      authPassword: 
+        name: gmail-auth
+        key: password
+```
+
+I also created `email-secret.yaml` which contains a base64 encoded secret of the authPassword which is not checked into this git repository
+
+Now in the Alertmanager status at `http://127.0.0.1:9093/#/status`, we can see the configuration added:
+
+![alert-man](https://github.com/Princeton45/config-alerting-prometheus/blob/main/images/alert-man.png)
+
+![routes](https://github.com/Princeton45/config-alerting-prometheus/blob/main/images/routes.png)
+
 
 ### Email Notification Configuration
 The email notification system now:
