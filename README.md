@@ -131,21 +131,6 @@ Now in the Alertmanager status at `http://127.0.0.1:9093/#/status`, we can see t
 The email notification system now:
 - Sends detailed alerts when thresholds are breached
 - Includes relevant metrics in the notification
-- Delivers messages to our team's email address
+- Delivers messages to the designated to: email
 
-![Sample Alert Email Screenshot](suggested-image-alert-email.png)
-
-## Results
-Our monitoring infrastructure now automatically alerts the team whenever:
-- CPU utilization exceeds 50% on any node
-- Pods fail to start or enter a crash loop
-- Other critical conditions occur that might impact application performance
-
-This proactive monitoring approach allows us to address issues before they affect users and maintain high service availability.
-
-## Future Improvements
-- Add Slack notification channel
-- Implement PagerDuty integration for urgent alerts
-- Create more granular alerting rules for memory and network metrics
-
-![Monitoring Dashboard Screenshot](suggested-image-dashboard.png)
+![test](https://github.com/Princeton45/config-alerting-prometheus/blob/main/images/test.png)
